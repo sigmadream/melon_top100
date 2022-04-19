@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="melon_top100",
-    version="0.8.1",
+    version="1.0.0",
     license="MIT",
     author="Sangkon Han",
     author_email="sigmadream@gmail.com",

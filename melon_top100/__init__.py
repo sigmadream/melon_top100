@@ -9,7 +9,6 @@ headers = {
     ),
 }
 
-
 def get_songs():
     res = requests.get("http://www.melon.com/chart/index.htm", headers=headers)
     res.raise_for_status()
@@ -30,8 +29,18 @@ def get_songs():
             "title": song_tag.text,
             "album": album_tag.text,
             "artist": artist_tag.text,
-            "rank": rank,
         }
         song_list.append(song)
 
     return song_list
+
+
+def get_like_count(song_no_list):
+    api_url = "https://www.melon.com/commonlike/getSongLike.json"
+    params = {"contsIds": song_no_list}
+    res = requests.get(api_url, params=params, headers=headers)
+    res.raise_for_status()
+    response = res.json()
+    like_list = response["contsLike"]
+    like_dict = {str(song["CONTSID"]): song["SUMMCNT"] for song in like_list}
+    return like_dict
