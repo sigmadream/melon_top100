@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel", "beautifulsoup4", "requests"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "melon_top100"
+version = "1.0.0"
+dependencies = [
+  'beautifulsoup4',
+  'requests',
+]
