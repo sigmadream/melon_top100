@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel", "beautifulsoup4", "requests"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "melon_top100"
+version = "1.1.0"
+authors = [
+  { name="Sangkon Han", email="sigmadream@gmail.com" },
+]
+description = "This is a package that allows you to easily import Melon Top100 information. Suitable for training lists and dictionaries."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  'beautifulsoup4',
+  'requests',
+]
+
+[project.urls]
+"Homepage" = "https://github.com/sigmadream/melon_top100"
+"Bug Tracker" = "https://github.com/sigmadream/melon_top100/issues"
