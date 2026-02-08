@@ -1,26 +1,45 @@
 [build-system]
-requires = ["setuptools>=64.0.0", "wheel", "beautifulsoup4", "requests"]
+requires = ["setuptools>=64.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "melon_top100"
-version = "1.1.0"
+version = "1.5.0"
 authors = [
-  { name="Sangkon Han", email="sigmadream@gmail.com" },
+  { name = "Sangkon Han", email = "sigmadream@gmail.com" },
 ]
-description = "This is a package that allows you to easily import Melon Top100 information. Suitable for training lists and dictionaries."
+description = "A package to easily scrape music chart data from Melon and Bugs. Suitable for training lists and dictionaries."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
+license = "MIT"
 classifiers = [
   "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
 dependencies = [
-  'beautifulsoup4',
-  'requests',
+  "beautifulsoup4",
+  "requests",
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/sigmadream/melon_top100"
+Homepage = "https://github.com/sigmadream/melon_top100"
 "Bug Tracker" = "https://github.com/sigmadream/melon_top100/issues"
+
+[dependency-groups]
+dev = [
+  "ruff",
+  "pytest",
+  "responses",
+]
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
