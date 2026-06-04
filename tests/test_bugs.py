@@ -115,3 +115,21 @@ def test_get_songs_http_error():
 
     with pytest.raises(HTTPError):
         get_songs()
+
+
+@pytest.mark.integration
+def test_live_get_songs():
+    songs = get_songs()
+    assert isinstance(songs, list)
+    assert len(songs) > 0
+
+    first_song = songs[0]
+    assert "track_id" in first_song
+    assert "title" in first_song
+    assert "artist" in first_song
+    assert "album" in first_song
+    assert first_song["track_id"].isdigit()
+    assert len(first_song["title"].strip()) > 0
+    assert len(first_song["artist"].strip()) > 0
+    assert len(first_song["album"].strip()) > 0
+

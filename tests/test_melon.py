@@ -155,3 +155,21 @@ def test_get_like_count_http_error():
 
     with pytest.raises(HTTPError):
         get_like_count(12345)
+
+
+@pytest.mark.integration
+def test_live_get_songs():
+    songs = get_songs()
+    assert isinstance(songs, list)
+    assert len(songs) > 0
+
+    first_song = songs[0]
+    assert "song_no" in first_song
+    assert "title" in first_song
+    assert "album" in first_song
+    assert "artist" in first_song
+    assert first_song["song_no"].isdigit()
+    assert len(first_song["title"].strip()) > 0
+    assert len(first_song["album"].strip()) > 0
+    assert len(first_song["artist"].strip()) > 0
+

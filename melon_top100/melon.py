@@ -1,3 +1,5 @@
+from typing import Union
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -21,8 +23,16 @@ def get_songs() -> list[dict[str, str]]:
     for tr_tag in tr_tag_list:
         song_no = tr_tag["data-song-no"]
         song_tag = tr_tag.select_one("a[href*=playSong]")
-        album_tag = tr_tag.select_one(".wrap_song_info a[href*=goAlbumDetail]")
-        artist_tag = tr_tag.select_one("a[href*=goArtistDetail]")
+        album_tag = tr_tag.select_one(
+            ".wrap_song_info a[href*=goAlbumDetail], "
+            ".wrap_song_info a[href*=albumId], "
+            ".wrap_song_info a[href*='album/detail']"
+        )
+        artist_tag = tr_tag.select_one(
+            "a[href*=goArtistDetail], "
+            "a[href*=artistId], "
+            "a[href*='artist/detail']"
+        )
 
         if not (song_tag and album_tag and artist_tag):
             continue
@@ -39,7 +49,7 @@ def get_songs() -> list[dict[str, str]]:
     return song_list
 
 
-def get_like_count(song_no_list: int | list[int]) -> dict[str, int]:
+def get_like_count(song_no_list: Union[int, list[int]]) -> dict[str, int]:
     api_url = "https://www.melon.com/commonlike/getSongLike.json"
     if isinstance(song_no_list, list):
         conts_ids = ",".join(str(n) for n in song_no_list)
@@ -51,3 +61,8 @@ def get_like_count(song_no_list: int | list[int]) -> dict[str, int]:
     response = res.json()
     like_list: list[dict] = response["contsLike"]
     return {str(song["CONTSID"]): song["SUMMCNT"] for song in like_list}
+
+
+if __name__ == "__main__":
+    songs = get_songs()
+    print(songs)
